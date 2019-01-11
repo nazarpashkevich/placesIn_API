@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 Use App\Users;
 
@@ -37,21 +38,23 @@ class UserController extends Controller
 
     public function update_avatar(Request $request){
 
-        if ($request->hasFile($request->input('name'))) {
-            $image = $request->file($request->input('name'));
+        if ($request->hasFile('upload')) {
+            $image = $request->file('upload');
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/app/Upload/Image');
-            $image->move($destinationPath, $name);
-            $path = $image->getRealPath();
-            $this->save();
+            $image->move(public_path() . '/upload/image', $name);
+            $path = public_path() . '/upload/image/' . $name;
+//            $this->save();
             $user = User::find( $request->input('id'));
 
 // Make sure you've got the Page model
             if($user) {
                 $user->avatar_url = $path;
                 $user->save();
+                return response()->json($path,201);
+
             }
-            return response()->json('success',201);
+
         }
 
     }
