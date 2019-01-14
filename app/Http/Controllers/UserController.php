@@ -43,7 +43,7 @@ class UserController extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/app/Upload/Image');
             $image->move(public_path() . '/upload/image', $name);
-            $path = public_path() . '/upload/image/' . $name;
+            $path = p . '/upload/image/' . $name;
 //            $this->save();
             $user = User::find( $request->input('id'));
 
@@ -56,6 +56,16 @@ class UserController extends Controller
             }
 
         }
+
+    }
+
+    public function authorization(Request $request){
+        $user = User::find( $request->input('id'));
+        $token = $request->input('api_token');
+        if ($token == $user->api_token)
+            return response()->json('success',202);
+        else
+            return response()->json('failed',401);
 
     }
 

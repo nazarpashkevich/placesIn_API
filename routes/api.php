@@ -21,6 +21,7 @@ Use App\Users;
 
 Route::get('users', 'UserController@index');
 Route::get('users/{user}', 'UserController@show');
+Route::get('auth/', 'UserController@authorization');
 Route::post('users/image', 'UserController@update_avatar');
 Route::post('users', 'UserController@store');
 Route::delete('users/{user}', 'UserController@delete');

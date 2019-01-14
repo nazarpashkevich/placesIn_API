@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('description');
             $table->string('code');
             $table->string('picture_url');
+            $table->string('nesting level');
 
             $table->timestamps();
         });
