@@ -16,9 +16,10 @@ class UserController extends Controller
         return Users::all();
     }
 
-    public function show(Users $user)
+    public function show(Request $request)
     {
-        return $user;
+        $user = User::find( $request->input('id'));
+        return  response()->json($user,201);
     }
 
     public function store(Request $request)
